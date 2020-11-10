@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using PlayTech.Shared.Database.Base;
+﻿using PlayTech.Shared.DTOs;
 
-namespace PlayTech.UnitOfWork.Models
+namespace PlayTech.Business.Models.Employees
 {
-    public class Employee : BaseEntity
+    public class EmployeeEditDTO : BaseDTO
     {
         public int? DepartmentId { get; set; }
         public int? ManagerId { get; set; }

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using PlayTech.Business.Models.Departments;
+using PlayTech.Business.Models.Employees;
+using PlayTech.Shared.Data.Interfaces;
+using PlayTech.WebAPI.Models.Departments;
+using PlayTech.WebAPI.Models.Employees;
+using PlayTech.WebAPI.Models.Shared.Data;
 
 namespace PlayTech.WebAPI
 {
@@ -10,6 +16,8 @@ namespace PlayTech.WebAPI
     {
         public VMToDTOMapping()
         {
+            CreateMap<EmployeeListFilterDTO, EmployeeListFilterVM>();
+            CreateMap<EmployeeEditVM, EmployeeEditDTO>();
         }
     }
 
@@ -17,6 +25,13 @@ namespace PlayTech.WebAPI
     {
         public DTOToVMMapping()
         {
+            CreateMap(typeof(IPagedList<>), typeof(PagedListVM<>));
+
+            CreateMap<EmployeeEditDTO, EmployeeEditVM>();
+            CreateMap<EmployeeListItemDTO, EmployeeListItemVM>();
+            CreateMap<EmployeeInfoDTO, EmployeeInfoVM>();
+
+            CreateMap<DepartmentInfoDTO, DepartmentInfoVM>();
         }
     }
 }

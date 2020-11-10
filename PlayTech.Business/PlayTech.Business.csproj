@@ -9,4 +9,8 @@
     <ProjectReference Include="..\PlayTech.UnitOfWork\PlayTech.UnitOfWork.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Departments\Exceptions\" />
+  </ItemGroup>
+
 </Project>
