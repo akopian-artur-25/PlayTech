@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlayTech.Business\PlayTech.Business.csproj" />
+    <ProjectReference Include="..\PlayTech.Shared\PlayTech.Shared.csproj" />
+    <ProjectReference Include="..\PlayTech.UnitOfWork\PlayTech.UnitOfWork.csproj" />
+  </ItemGroup>
+
+</Project>
