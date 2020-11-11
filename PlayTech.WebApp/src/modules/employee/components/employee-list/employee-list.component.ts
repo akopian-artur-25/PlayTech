@@ -44,25 +44,24 @@ export class EmployeeListComponent
     return this.employeeService.list(filter)
       .pipe(untilDestroyed(this));
   }
-
-  create() {
-    this.matDialog.open(EmployeeEditComponent)
-      .afterClosed().pipe(untilDestroyed(this))
-      .subscribe((refresh: boolean) => {
-        if (refresh) {
-
-        }
-      }, () => {
-
-      });
-  }
-
   getFirstName(model: EmployeeListItem) {
     return EmployeeHelper.getFirstName(model);
   }
 
   getLastName(model: EmployeeListItem) {
     return EmployeeHelper.getLastName(model);
+  }
+
+  create() {
+    this.matDialog.open(EmployeeEditComponent)
+      .afterClosed().pipe(untilDestroyed(this))
+      .subscribe((refresh: boolean) => {
+        if (refresh) {
+          this.refreshData();
+        }
+      }, () => {
+
+      });
   }
 
   edit(id: number) {

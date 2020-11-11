@@ -53,4 +53,7 @@
     </mat-paginator>
     <mat-spinner *ngIf="isLoading$ | async" [diameter]="70"></mat-spinner>
   </div>
+  <button (click)="create()" class="employee-create-button" mat-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>
