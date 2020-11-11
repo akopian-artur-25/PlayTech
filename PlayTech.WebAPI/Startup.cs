@@ -61,7 +61,7 @@ namespace PlayTech.WebAPI
             #region Database
 
             services.AddDbContext<PlayTechContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IDbContext, PlayTechContext>();
+            services.AddScoped<IDbContext>(provider => provider.GetService<PlayTechContext>());
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             #endregion Database

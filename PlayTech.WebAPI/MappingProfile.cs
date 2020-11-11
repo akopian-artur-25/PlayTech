@@ -16,7 +16,7 @@ namespace PlayTech.WebAPI
     {
         public VMToDTOMapping()
         {
-            CreateMap<EmployeeListFilterDTO, EmployeeListFilterVM>();
+            CreateMap<EmployeeListFilterVM, EmployeeListFilterDTO>();
             CreateMap<EmployeeEditVM, EmployeeEditDTO>();
         }
     }

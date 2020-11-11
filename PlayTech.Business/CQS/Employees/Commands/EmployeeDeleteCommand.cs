@@ -22,7 +22,7 @@ namespace PlayTech.Business.CQS.Employees.Commands
                 throw new EmployeeException("Employee not found");
             }
 
-            if (_repository.Any(o => o.Id == o.ManagerId))
+            if (_repository.Any(o => o.ManagerId == entity.Id))
             {
                 throw new EmployeeException("Employee is manager");
             }

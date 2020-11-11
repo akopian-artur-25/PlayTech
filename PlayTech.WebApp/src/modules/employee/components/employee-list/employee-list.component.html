@@ -1,0 +1,56 @@
+<div class="employee-list">
+  <div class="employee-list__table">
+    <ng-container *ngIf="isNoData$ | async; then empty else content"></ng-container>
+    <ng-template #content>
+      <mat-table [dataSource]="data$ | async">
+
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ getFirstName(row) }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ getLastName(row) }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+          <mat-header-cell *matHeaderCellDef>Department</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.department?.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="manager">
+          <mat-header-cell *matHeaderCellDef>Manager</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.manager?.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="salary">
+          <mat-header-cell *matHeaderCellDef>Salary</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.salary | currency }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="buttons">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <app-table-buttons (edit)="edit(row.id)" (delete)="delete(row.id)"></app-table-buttons>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </ng-template>
+    <ng-template #empty>
+      <div *ngIf="!(isLoading$ | async)" class="employee-list__empty">
+        No data
+      </div>
+    </ng-template>
+    <mat-paginator [length]="totalCount$ | async"
+                   [pageSize]="pageSize$ | async"
+                   [pageIndex]="pageIndex$ | async"
+                   [pageSizeOptions]="[25, 50, 75, 100]"
+                   (page)="pageChange($event)">
+    </mat-paginator>
+    <mat-spinner *ngIf="isLoading$ | async" [diameter]="70"></mat-spinner>
+  </div>
+</div>

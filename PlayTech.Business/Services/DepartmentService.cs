@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using PlayTech.Business.Services.Interfaces;
 using PlayTech.Shared.Database.Interfaces;
+using PlayTech.Shared.Utils;
 using PlayTech.UnitOfWork.Models;
 
 namespace PlayTech.Business.Services
@@ -20,10 +21,10 @@ namespace PlayTech.Business.Services
             _repository = repository;
         }
 
-        public async Task<Dictionary<int, string>> AutocompleteAsync(string input)
+        public async Task<IEnumerable<KeyValue<int, string>>> AutocompleteAsync(string input)
         {
             return await _repository.GetMany(o => o.Name.ToLower().Contains(input.ToLower()))
-                .Take(10).ToDictionaryAsync(o => o.Id, o => o.Name);
+                .Take(10).Select(o => new KeyValue<int, string>(o.Id, o.Name)).ToListAsync();
         } 
     }
 }

@@ -16,26 +16,23 @@ namespace PlayTech.Business.CQS.Employees.Commands
         {
         }
 
-        protected override Task<Employee> PrepareEntityToInsertAsync(Employee entity, EmployeeEditDTO model)
+        protected override Task<Employee> PrepareEntityToUpdateAsync(Employee entity, EmployeeEditDTO model)
         {
             if (entity.Id == model.ManagerId)
             {
                 throw new EmployeeException("Employee cannot be a manager to himself");
             }
 
-            return base.PrepareEntityToInsertAsync(entity, model);
+            return base.PrepareEntityToUpdateAsync(entity, model);
         }
 
         protected override Employee PrepareEntity(Employee entity, EmployeeEditDTO model)
         {
-            return new Employee
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Salary = model.Salary,
-                DepartmentId = model.DepartmentId,
-                ManagerId = model.ManagerId
-            };
+            entity.Name = model.Name;
+            entity.Salary = model.Salary;
+            entity.DepartmentId = model.DepartmentId;
+            entity.ManagerId = model.ManagerId;
+            return entity;
         }
     }
 }

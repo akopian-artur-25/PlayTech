@@ -35,8 +35,7 @@ namespace PlayTech.Shared.CQS.Commands
             }
             else
             {
-                var entities = _repository.GetMany(o => o.Id == model.Id, false);
-                entity = await entities.FirstOrDefaultAsync();
+                entity = await _repository.GetSingleAsync(o => o.Id == model.Id, false);
 
                 await PrepareEntityToUpdateAsync(entity, model);
                 await _repository.UpdateAsync(entity);
@@ -61,10 +60,8 @@ namespace PlayTech.Shared.CQS.Commands
 
         protected virtual TEntity PrepareEntity(TEntity entity, TDTO model)
         {
-            return new TEntity
-            {
-                Id = model.Id
-            };
+            entity.Id = model.Id;
+            return entity;
         }
     }
 }

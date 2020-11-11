@@ -60,7 +60,7 @@ namespace PlayTech.Shared.CQS.Queries
 
         protected virtual Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> GetListEntityOrdered(TFilterDTO filter)
         {
-            return null;
+            return source => source.OrderByDescending(o => o.Id);
         }
 
         protected virtual Expression<Func<TEntity, TListItemDTO>> ProjectToListItemDTO()

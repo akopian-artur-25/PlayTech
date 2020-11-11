@@ -14,11 +14,6 @@ namespace PlayTech.UnitOfWork
         {
         }
 
-        public PlayTechContext(DbContextOptions<PlayTechContext> options)
-            : base(options)
-        {
-        }
-
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
 
@@ -49,6 +44,12 @@ namespace PlayTech.UnitOfWork
                 entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.Property(e => e.Salary).HasColumnType("decimal(18, 2)");
+
+                entity.HasOne(e => e.Department).WithMany()
+                    .HasForeignKey(e => e.DepartmentId).IsRequired(false);
+
+                entity.HasOne(e => e.Manager).WithMany()
+                    .HasForeignKey(e => e.ManagerId).IsRequired(false);
             });
         }
     }

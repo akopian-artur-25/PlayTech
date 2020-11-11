@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using PlayTech.Shared.Utils;
 
 namespace PlayTech.Business.Services.Interfaces
 {
     public interface IDepartmentService
     {
-        Task<Dictionary<int, string>> AutocompleteAsync(string input);
+        Task<IEnumerable<KeyValue<int, string>>> AutocompleteAsync(string input);
     }
 }

@@ -10,6 +10,7 @@ using PlayTech.Business.Models.Employees;
 using PlayTech.Business.Services.Interfaces;
 using PlayTech.Shared.Data.Interfaces;
 using PlayTech.Shared.Database.Interfaces;
+using PlayTech.Shared.Utils;
 using PlayTech.UnitOfWork.Models;
 
 namespace PlayTech.Business.Services
@@ -28,6 +29,13 @@ namespace PlayTech.Business.Services
             return await new EmployeeListQuery(_repository).ExecuteAsync(filter);
         }
 
+        public async Task<EmployeeEditDTO> GetByIdAsync(int id)
+        {
+            return await _repository.GetMany(o => o.Id == id)
+                .Select(EmployeeEditDTO.ExpressionSelector())
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<int> SaveAsync(EmployeeEditDTO model)
         {
             return await new EmployeeSaveCommand(_repository).ExecuteAsync(model);
@@ -38,10 +46,10 @@ namespace PlayTech.Business.Services
             return await new EmployeeDeleteCommand(_repository).ExecuteAsync(id);
         }
 
-        public async Task<Dictionary<int, string>> AutocompleteAsync(string input)
+        public async Task<IEnumerable<KeyValue<int, string>>> AutocompleteAsync(string input)
         {
             return await _repository.GetMany(o => o.Name.ToLower().Contains(input.ToLower()))
-                .Take(10).ToDictionaryAsync(o => o.Id, o => o.Name);
+                .Take(10).Select(o => new KeyValue<int, string>(o.Id, o.Name)).ToListAsync();
         }
     }
 }

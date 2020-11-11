@@ -8,9 +8,10 @@ namespace PlayTech.WebAPI.Models.Employees
 {
     public class EmployeeListItemVM
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal? Salary { get; set; }
         public DepartmentInfoVM Department { get; set; }
         public EmployeeInfoVM Manager { get; set; }
-        public EmployeeInfoVM Employee { get; set; }
-        public decimal? Salary { get; set; }
     }
 }
